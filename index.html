@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book name</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <h1 class="text-center"> NOTES </h1>
+        <div class="card">
+            <div class=" card-body">
+                <form action="#">
+                     <input id="input" type="text" class="form-control" placeholder="Heading" />
+                     <br/>
+                     <textarea  id="text" cols="30" rows="10" class="form-control" placeholder="">   </textarea>
+                     <div class=" container text-center mt-2">
+                         <button onclick="addlist()" class="btn btn-primary">ADD MORE</button>
+                     </div>
+                    
+                </form>
+
+            </div>
+
+        </div>
+        <div class="main-content" id="main">
+
+        </div>
+    </div>
+    <script>
+        const addlist=()=>{
+       let input=document.getElementById("input").value
+       let text=document.getElementById("text").value
+       let array=[]
+       let local=localStorage.getItem("array")
+       if(local!=null){
+           array=JSON.parse(local)
+       }
+       let localobj={
+           input : input,
+           text : text,
+           id:Math.trunc(Math.random()*1000),
+       };
+       array.push(localobj)
+       localStorage.setItem("array",JSON.stringify(array))
+        show()
+
+        }
+        const show=()=>{
+            let to=localStorage.getItem("array")
+           let cont=""
+           if(to==null){
+               cont+="no element is there in box"
+           }
+           else{
+             let hero = JSON.parse(to)
+             for( index of hero .reverse() ){
+                 cont+=` <div class="card mt-2">
+                    <div class ="card-body">
+
+                        <h3> ${index.input}</h3>
+                        <p>${index.text}</p>
+                        
+                    </div>
+                    </div>`
+             }
+
+           }
+           document.getElementById("main").innerHTML=cont
+           show()
+        }
+        function deleteNote(index) {
+//   console.log("I am deleting", index);
+        }
+
+    </script>
+</body>
+</html>
